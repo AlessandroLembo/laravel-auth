@@ -3,7 +3,7 @@
 @section('title', $project->name)
 
 @section('content')
-    <header class="text-center my-5 fs-1">{{ $project->name }}</header>
+    <header class="text-center my-5 fs-1 fw-bold">{{ $project->name }}</header>
     <div class="row justify-content-center">
         <div class="col-6">
             @if ($project->image)
@@ -24,5 +24,10 @@
             </div>
         </div>
 
+    </div>
+    <hr>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-secondary" href="{{ route('admin.projects.index') }}"><i
+                class="fa-solid fa-square-caret-left me-2"></i>BACK</a>
     </div>
 @endsection
