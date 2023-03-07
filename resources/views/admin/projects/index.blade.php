@@ -25,8 +25,8 @@
                         <td>{{ $project->project_for }}</td>
                         <td>{{ $project->web_platform }}</td>
                         <td>
-                            <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-small btn-primary">Vedi
-                                Progetto</a>
+                            <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-small btn-primary"><i
+                                    class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
                 @empty
@@ -35,18 +35,6 @@
                     </tr>
                 @endforelse
 
-
-                {{-- <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr> --}}
             </tbody>
         </table>
 
