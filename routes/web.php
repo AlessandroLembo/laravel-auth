@@ -26,7 +26,7 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
 
     // Rotte dei project incorporate con resource()
-    Route::resource('project', ProjectController::class);
+    Route::resource('projects', ProjectController::class);
 
     // Rotte dei project costruite singolarmente:
 
