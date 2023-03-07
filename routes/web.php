@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Guest\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\ProjectController;
 
 
 /*
@@ -19,10 +20,25 @@ use App\Http\Controllers\Guest\HomeController as AdminHomeController;
 
 Route::get('/', [GuestHomeController::class, 'index']);
 
-
-Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(function () {
-
+// # Rotte che vedo solo se sono loggato
+Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
+    // Home dell'utente loggato
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
+
+    // Rotte dei project incorporate con resource()
+    Route::resource('project', ProjectController::class);
+
+    // Rotte dei project costruite singolarmente:
+
+    // Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+    // Route::get('/projects{project}', [ProjectController::class, 'show'])->name('projects.show');
+    // Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    // Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
+    // Route::get('/projects{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    // Route::put('/projects{project}', [ProjectController::class, 'update'])->name('projects.update');
+    // Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+
+
 });
 
 Route::middleware('auth')->prefix('/profile')->name('profile.')->group(function () {
