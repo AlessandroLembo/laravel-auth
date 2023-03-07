@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-6">
             @if ($project->image)
-                <figure>
+                <figure class="ps-image-project">
                     <img src="{{ $project->image }}" alt="{{ $project->name }}">
                 </figure>
             @endif
