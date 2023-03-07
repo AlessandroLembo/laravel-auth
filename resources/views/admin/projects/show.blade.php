@@ -4,11 +4,12 @@
 
 @section('content')
     <header class="text-center my-5 fs-1">{{ $project->name }}</header>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-6">
             @if ($project->image)
-                <figure class="ps-image-project">
-                    <img src="{{ $project->image }}" alt="{{ $project->name }}">
+                <figure class="d-flex justify-content-center">
+                    <img src="{{ $project->image }}" alt="{{ $project->name }}" class="ps-image-project">
+
                 </figure>
             @endif
 
@@ -16,10 +17,10 @@
         <div class="col-6">
             <div class="d-flex flex-column align-items-start">
                 <h2>{{ $project->slug }}</h2>
-                <h4>{{ $project->description }}</h4>
-                <h4>{{ $project->project_for }}</h4>
-                <h4>{{ $project->web_platform }}</h4>
-                <h4>{{ $project->duration_project }}</h4>
+                <p>{{ $project->description }}</p>
+                <p class="fs-4"><strong>Progetto per:</strong> {{ $project->project_for }}</p>
+                <p class="fs-4"><strong>Pubblicato su:</strong> {{ $project->web_platform }}</p>
+                <p class="fs-4"><strong>Durata del progetto:</strong> {{ $project->duration_project }}</p>
             </div>
         </div>
 
