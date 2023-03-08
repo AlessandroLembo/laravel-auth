@@ -8,7 +8,7 @@ deleteForms.forEach(form => {
         const element = form.getAttribute('data-entity') || 'elemento';
 
         // funzione confirm() che chiede la conferma dell'eliminazione
-        const hasConfirmed = confirm(`Confermi di voler cancellare ${element}?`)
+        const hasConfirmed = confirm(`Confermi di voler cancellare il ${element}?`)
 
         // Se mi conferma eseguo l'eleiminazione definitiva
         if (hasConfirmed) form.submit();

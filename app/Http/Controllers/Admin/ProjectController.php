@@ -31,7 +31,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $new_project = new Project();
+
+        $new_project->fill($data);
+
+        $new_project->save();
+
+        return to_route('admin.projects.show', $new_project->id);
     }
 
     /**
@@ -67,6 +75,6 @@ class ProjectController extends Controller
         $project->delete();
 
         // Faccio il redirect alla pagina index e stampo il messaggio di conferma eliinazione
-        return to_route('admin.projects.index')->with('type', 'danger')->with('message', "Il '$project->name' è stato cancellato con successo");
+        return to_route('admin.projects.index')->with('type', 'danger')->with('message', "Il progetto '$project->name' è stato cancellato con successo");
     }
 }

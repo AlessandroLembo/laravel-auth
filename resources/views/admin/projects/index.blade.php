@@ -14,7 +14,6 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Slug</th>
                     <th scope="col">Poject for</th>
                     <th scope="col">Platform</th>
                     <th></th>
@@ -25,7 +24,6 @@
                     <tr>
                         <th scope="row">{{ $project->id }}</th>
                         <td>{{ $project->name }}</td>
-                        <td>{{ $project->slug }}</td>
                         <td>{{ $project->project_for }}</td>
                         <td>{{ $project->web_platform }}</td>
                         <td class="d-flex justify-content-end align-items-center">
@@ -33,7 +31,7 @@
                                     class="fa-solid fa-eye"></i></a>
 
                             <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
-                                class="delete-form" data-entity="project">
+                                class="delete-form" data-entity="progetto">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-small btn-danger ms-2"><i
