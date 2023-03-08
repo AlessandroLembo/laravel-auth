@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -32,6 +33,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        // validazione
+        $request->validate([
+            'name' => 'required|string|unique:projects',
+            'description' => 'nullable|string',
+            'image' => 'nullable|url',
+            'project_for' => 'string',
+            'web_platform' => 'nullable|string',
+            'duration_project' => 'nullable|string',
+        ], [
+            'name.required' => 'Il nome del progetto è obbligatorio',
+            'name.unique' => "Esiste già un progetto con il nome $request->name",
+            'image.url' => 'Questo link non è valido'
+
+        ]);
+
         $data = $request->all();
 
         $new_project = new Project();
@@ -64,6 +80,21 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $request->validate([
+            // Il metodo ignore sui campi unique non ostacola l'aggiornamento dello stesso progetto
+            'name' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
+            'description' => 'nullable|string',
+            'image' => 'nullable|url',
+            'project_for' => 'string',
+            'web_platform' => 'nullable|string',
+            'duration_project' => 'nullable|string',
+        ], [
+            'name.required' => 'Il nome del progetto è obbligatorio',
+            'name.unique' => "Esiste già un progetto con il nome $request->name",
+            'image.url' => 'Questo link non è valido'
+
+        ]);
+
         $data = $request->all();
 
         // update fa i metodi fill() e save() insieme
