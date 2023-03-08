@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    {{-- @auth
-        <h1 class="fs-1 text-center fw-bold my-5 text-uppercase">logged in successfully</h1>
-    @endauth --}}
-    {{-- @guest --}}
     <div class="jumbotron p-5 mb-4 bg-light rounded-3">
         <div class="container py-5">
             <div class="logo_laravel">
@@ -32,5 +28,4 @@
                 accusamus dolores!</p>
         </div>
     </div>
-    {{-- @endguest --}}
 @endsection
