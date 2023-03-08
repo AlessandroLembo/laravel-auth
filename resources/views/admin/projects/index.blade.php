@@ -4,7 +4,11 @@
 
 @section('content')
     <header>
-        <h1 class="text-center my-5 fs-1">Projects</h1>
+        <div class="d-flex align-items-center justify-content-around">
+            <h1 class="text-center my-5 fs-1">Projects</h1>
+            <a href="{{ route('admin.projects.create') }}" class="btn btn-success">Aggiungi Progetto</a>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
