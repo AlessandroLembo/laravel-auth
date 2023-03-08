@@ -28,7 +28,8 @@
                             <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-small btn-primary"><i
                                     class="fa-solid fa-eye"></i></a>
 
-                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+                                class="delete-form" data-entity="project">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-small btn-danger ms-2"><i
