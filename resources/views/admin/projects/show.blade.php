@@ -27,6 +27,11 @@
     </div>
     <hr>
     <div class="d-flex justify-content-end">
+        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger me-2"><i class="fa-solid fa-trash me-2"></i>Elimina</button>
+        </form>
         <a class="btn btn-secondary" href="{{ route('admin.projects.index') }}"><i
                 class="fa-solid fa-square-caret-left me-2"></i>BACK</a>
     </div>
