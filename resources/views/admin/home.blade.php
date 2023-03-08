@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2 class="fs-4 text-secondary my-4">
+    <div class="container">
+        {{-- <h2 class="fs-4 text-secondary my-4">
         {{ __('Dashboard') }}
     </h2>
     <div class="row justify-content-center">
@@ -21,6 +21,8 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+        <h1 class="text-center my-5">Loggato con successo</h1>
     </div>
-</div>
 @endsection
