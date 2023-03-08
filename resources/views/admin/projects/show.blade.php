@@ -33,6 +33,8 @@
             @method('DELETE')
             <button type="submit" class="btn btn-danger me-2"><i class="fa-solid fa-trash me-2"></i>Elimina</button>
         </form>
+        <a class="btn btn-warning me-2" href="{{ route('admin.projects.edit', $project->id) }}">
+            <i class="fa-solid fa-pen-to-square me-2"></i>Modifica</a>
         <a class="btn btn-secondary" href="{{ route('admin.projects.index') }}"><i
                 class="fa-solid fa-square-caret-left me-2"></i>BACK</a>
     </div>

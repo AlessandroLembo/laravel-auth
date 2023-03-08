@@ -30,6 +30,10 @@
                             <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-small btn-primary"><i
                                     class="fa-solid fa-eye"></i></a>
 
+                            <a class="btn btn-small btn-warning ms-2"
+                                href="{{ route('admin.projects.edit', $project->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i></a>
+
                             <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
                                 class="delete-form" data-entity="progetto">
                                 @csrf

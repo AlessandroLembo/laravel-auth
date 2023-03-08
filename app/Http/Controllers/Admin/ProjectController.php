@@ -23,7 +23,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $project = new Project();
+        return view('admin.projects.create', compact('project'));
     }
 
     /**
@@ -39,7 +40,7 @@ class ProjectController extends Controller
 
         $new_project->save();
 
-        return to_route('admin.projects.show', $new_project->id);
+        return to_route('admin.projects.show', $new_project->id)->with('type', 'success')->with('Creazione progetto andata a buon fine');
     }
 
     /**
@@ -53,17 +54,24 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->all();
+
+        // update fa i metodi fill() e save() insieme
+        // $project->update($data);
+        $project->fill($data);
+        $project->save();
+
+        return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('message', "Modifiche al progetto '$project->name' apportate con successo");
     }
 
     /**
