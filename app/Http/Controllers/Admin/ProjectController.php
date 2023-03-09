@@ -55,7 +55,7 @@ class ProjectController extends Controller
 
         // controllo se mi arriva un file immagine nell'array data (potrei usare anche una funzione datami dagli helper di laravel)
         if (array_key_exists('image', $data)) {
-            /* se sono qui c'è l'immagine e la salvo l'url nello Storage con una Facades:
+            /* se sono qui c'è l'immagine e salvo l'url nello Storage con una Facades:
                primo argomento cartella dove voglio salvare,
                secondo argomento cosa voglio salvare.
             */
@@ -99,18 +99,32 @@ class ProjectController extends Controller
             // Il metodo ignore sui campi unique non ostacola l'aggiornamento dello stesso progetto
             'name' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'description' => 'nullable|string',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image', // validazione che controlla che sia un'immagine, posso anche speficare le estensioni
             'project_for' => 'string',
             'web_platform' => 'nullable|string',
             'duration_project' => 'nullable|string',
         ], [
             'name.required' => 'Il nome del progetto è obbligatorio',
             'name.unique' => "Esiste già un progetto con il nome $request->name",
-            'image.url' => 'Questo link non è valido'
+            'image.image' => 'Il file caricato deve essere di tipo immagine',
 
         ]);
 
         $data = $request->all();
+
+        if (array_key_exists('image', $data)) {
+            // Se c'è già un'immagine la cancello per lasciar spazio alla nuova che voglio caricare
+            if ($project->image) Storage::delete($project->image);
+
+            /* se sono qui c'è l'immagine e salvo l'url nello Storage con una Facades:
+               primo argomento cartella dove voglio salvare,
+               secondo argomento cosa voglio salvare.
+            */
+            $image_url = Storage::put('projects', $data['image']);
+
+            // Abbiamo l'url e lo assegno alla chiave image dell'array
+            $data['image'] = $image_url;
+        }
 
         // update fa i metodi fill() e save() insieme
         // $project->update($data);
