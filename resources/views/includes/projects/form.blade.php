@@ -11,15 +11,20 @@
 
 {{-- <form class="row g-3" action="{{ route('admin.projects.store') }}" method="POST"> --}}
 @csrf
-<div class="col-6">
+<div class="col-md-5">
     <label for="name" class="form-label">Name</label>
     <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $project->name) }}"
         required>
 </div>
-<div class="col-6">
+<div class="col-md-6">
     <label for="image" class="form-label">Image</label>
     <input type="file" class="form-control" id="image" name="image"
         value="{{ old('image', $project->image) }}">
+</div>
+<div class="col-md-1">
+    <img class="img-fluid" id="preview"
+        src="{{ $project->image ? asset('storage/' . $project->image) : 'https://marcolanci.it/utils/placeholder.jpg' }}"
+        alt="{{ $project->name }}">
 </div>
 <div class="mb-3">
     <label for="description" class="form-label">Description</label>
@@ -29,12 +34,12 @@
     <label for="web_platform" class="form-label">Web platform</label>
     <textarea class="form-control" id="web_platform" rows="3" name="web_platform">{{ old('web_platform', $project->web_platform) }}</textarea>
 </div>
-<div class="col-6">
+<div class="col-md-6">
     <label for="project_for" class="form-label">Project_for</label>
     <input type="text" class="form-control" id="project_for" name="project_for"
         value="{{ old('project_for', $project->project_for) }}">
 </div>
-<div class="col-6">
+<div class="col-md-6">
     <label for="duration_project" class="form-label">Duration_project</label>
     <input type="text" class="form-control" id="duration_project" name="duration_project"
         value="{{ old('duration_project', $project->duration_project) }}">
@@ -46,3 +51,34 @@
 </div>
 
 </form>
+
+@section('scripts')
+    <script>
+        const placeholder = 'https://marcolanci.it/utils/placeholder.jpg';
+
+        // Recupero gli elementi da dom
+        const imageFile = document.getElementById('image');
+        const imagePreview = document.getElementById('preview');
+
+        // Aggancio un event listener all'input
+        imageFile.addEventListener('change', () => {
+            // Controllo se ho caricato un file
+            if (imageFile.files && imageFile.files[0]) {
+
+                // istanzio un oggetto per leggere il contenuto dei file con fileReader
+                const reader = new FileReader();
+
+                // metodo per leggere il file come url, gli passo il file caricato 
+                reader.readAsDataURL(imageFile.files[0]);
+
+                // quando è stato preparato il file da leggere
+                reader.onload = e => {
+                    // prendo l'src dell'imagePreview e gli assegno il risultato della lettura del file
+                    // image.Preview.setAttribute('src', placeholder);
+                    imagePreview.src = e.target.result;
+                }
+
+            } else imagePreview.src = placeholder;
+        });
+    </script>
+@endsection
