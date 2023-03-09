@@ -1,9 +1,12 @@
 {{-- Dopo aver creato un nuovo progetto nel metodo create e poi in base al fatto che esiste o meno (id) col form distinguo le route --}}
+{{-- Se dal mio form volgio inviare dei files devo utlizzare l'attributo "enctype" con valore "multiform/form-data" --}}
 @if ($project->exists)
-    <form class="row g-3" action="{{ route('admin.projects.update', $project->id) }}" method="POST" novalidate>
+    <form class="row g-3" action="{{ route('admin.projects.update', $project->id) }}" method="POST"
+        enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form class="row g-3" action="{{ route('admin.projects.store') }}" method="POST" novalidate>
+        <form class="row g-3" action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data"
+            novalidate>
 @endif
 
 {{-- <form class="row g-3" action="{{ route('admin.projects.store') }}" method="POST"> --}}
@@ -15,7 +18,7 @@
 </div>
 <div class="col-6">
     <label for="image" class="form-label">Image</label>
-    <input type="text" class="form-control" id="image" name="image"
+    <input type="file" class="form-control" id="image" name="image"
         value="{{ old('image', $project->image) }}">
 </div>
 <div class="mb-3">
