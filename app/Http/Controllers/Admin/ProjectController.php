@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
@@ -14,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderby('updated_at', 'DESC')->get();
+        $projects = Project::orderby('id')->get();
 
         return view('admin.projects.index', compact('projects'));
     }
@@ -37,14 +38,14 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required|string|unique:projects',
             'description' => 'nullable|string',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image', // validazione che controlla che sia un'immagine, posso anche speficare le estensioni
             'project_for' => 'string',
             'web_platform' => 'nullable|string',
             'duration_project' => 'nullable|string',
         ], [
             'name.required' => 'Il nome del progetto è obbligatorio',
             'name.unique' => "Esiste già un progetto con il nome $request->name",
-            'image.url' => 'Questo link non è valido'
+            'image.image' => 'Il file caricato deve essere di tipo immagine',
 
         ]);
 
@@ -52,6 +53,20 @@ class ProjectController extends Controller
 
         $new_project = new Project();
 
+        // controllo se mi arriva un file immagine nell'array data (potrei usare anche una funzione datami dagli helper di laravel)
+        if (array_key_exists('image', $data)) {
+            /* se sono qui c'è l'immagine e la salvo l'url nello Storage con una Facades:
+               primo argomento cartella dove voglio salvare,
+               secondo argomento cosa voglio salvare.
+            */
+            $image_url = Storage::put('projects', $data['image']);
+
+            // Abbiamo l'url e lo assegno alla chiave image dell'array
+            $data['image'] = $image_url;
+        }
+
+        // Non possiamo fare fill() diretto perchè il database accetta solo stringhe,
+        // quindi devo prima salvare il file nello storage e ottenere la stringa (link allo storage) da poter salvare nel database
         $new_project->fill($data);
 
         $new_project->save();

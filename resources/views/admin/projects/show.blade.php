@@ -8,7 +8,7 @@
         <div class="col-6">
             @if ($project->image)
                 <figure class="d-flex justify-content-center">
-                    <img src="{{ $project->image }}" alt="{{ $project->name }}" class="ps-image-project">
+                    <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->name }}" class="ps-image-project">
 
                 </figure>
             @endif
