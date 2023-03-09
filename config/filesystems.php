@@ -13,6 +13,7 @@ return [
     |
     */
 
+    // Andiamo a salvare in un cartella "Public" che sta dentro "Storage"
     'default' => env('FILESYSTEM_DISK', 'public'),
 
     /*
@@ -38,7 +39,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/public'), // dove vengono salvati file caricati
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
