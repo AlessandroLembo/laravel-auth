@@ -18,8 +18,18 @@
 </div>
 <div class="col-md-6">
     <label for="image" class="form-label">Image</label>
-    <input type="file" class="form-control" id="image" name="image"
-        value="{{ old('image', $project->image) }}">
+    @if ($project->image)
+        <button type="button" id="btn-change"
+            class="form-control btn btn-outline-primary justify-content-end align-items-center d-block">Cambia
+            Immagine</button>
+
+        <input type="file" class="form-control d-none image" name="image"
+            value="{{ old('image', $project->image) }}">
+    @else
+        <input type="file" class="form-control image" name="image" value="{{ old('image', $project->image) }}">
+        {{-- <input type="file" class="form-control" id="image" name="image"
+            value="{{ old('image', $project->image) }}"> --}}
+    @endif
 </div>
 <div class="col-md-1">
     <img class="img-fluid" id="preview"
@@ -57,7 +67,7 @@
         const placeholder = 'https://marcolanci.it/utils/placeholder.jpg';
 
         // Recupero gli elementi da dom
-        const imageFile = document.getElementById('image');
+        const imageFile = document.querySelector('.image');
         const imagePreview = document.getElementById('preview');
 
         // Aggancio un event listener all'input
@@ -79,6 +89,19 @@
                 }
 
             } else imagePreview.src = placeholder;
+        });
+    </script>
+
+    <script>
+        const buttonChange = document.getElementById('btn-change')
+        const imageChange = document.querySelector('.image');
+
+        buttonChange.addEventListener('click', () => {
+            buttonChange.classList.remove('d-block');
+            buttonChange.classList.add('d-none');
+            imageChange.classList.remove('d-none');
+            imageChange.classList.add('d-block');
+
         });
     </script>
 @endsection
